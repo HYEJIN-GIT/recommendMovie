@@ -3,11 +3,9 @@ let url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}`
 
 
 
-
 const urlSetting = ()=>{
     const region = "kr"
     const language  = "ko-KR"
-   
     url.searchParams.set("language",language)
     url.searchParams.set("region",region)
 
@@ -39,3 +37,17 @@ export const searchMovie= async(keyword) =>{
 
 }
 searchMovie()
+
+
+export const genre = async (genreId)=>{
+     url = new URL(`https://api.themoviedb.org/3/discover/movie?with_genres=${genreId}&api_key=${API_KEY}&sort_by=popularity.desc`)
+     url.searchParams.set("language", "ko-KR")
+     url.searchParams.set("include_adult", false)
+
+     url.searchParams.set("with_original_language", "ko")
+     url.searchParams.set("region", "kr")
+    let response = await fetch(url)
+    let data = await response.json()
+    return data.results
+}
+genre()

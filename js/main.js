@@ -8,9 +8,19 @@
 //6. 로컬스토리지 취소
 
 
-import { nowPlayMovie } from "./api.js";
+import { nowPlayMovie,genre} from "./api.js";
+
 
 const nowContent =document.getElementById('now-movies')
+const categoryBtn = document.querySelectorAll('.category-btn button')
+console.log(categoryBtn)
+categoryBtn.forEach((item)=>
+item.addEventListener('click',async(event)=>{
+    let genreId = event.target.dataset.id
+    genreRender(genreId )
+})
+)
+
 
 const nowRender = async ()=>{
     const data = await nowPlayMovie()
@@ -28,3 +38,18 @@ const nowRender = async ()=>{
 }
 nowRender()
 
+const genreRender= async (id)=>{
+    const genreList = await genre(id)
+    console.log(genreList)
+
+    const genreHTML = genreList.map((item)=>`
+    <div class="best-area">
+        <img src = "${`https://image.tmdb.org/t/p/w300${item.poster_path}`}">
+        <div>${item.title.length > 15 ? item.title.slice(0,14):item.title}</div>
+        <div>${Math.round(item.vote_average*100)/100.0}</div>
+        <button class = "cancel" data-id="${item.id}">좋아요</button>
+       </div>
+        
+     `).join('')
+    nowContent.innerHTML = genreHTML
+}
