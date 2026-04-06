@@ -20,7 +20,7 @@ export const nowPlayMovie = async(page = 1)=> {
     urlSetting()
     let response = await fetch(url)
     let data = await response.json()
-    return data.results
+    return data
 }
 
 nowPlayMovie()
@@ -31,23 +31,27 @@ export const searchMovie= async(keyword) =>{
     urlSetting()
     let response = await fetch(url)
     let data = await response.json()
-
-    return data.results
+   
+    return data
    
 
 }
 searchMovie()
 
 
-export const genre = async (genreId)=>{
-     url = new URL(`https://api.themoviedb.org/3/discover/movie?with_genres=${genreId}&api_key=${API_KEY}&sort_by=popularity.desc`)
+export const genre = async (genreId,page=1)=>{
+     url = new URL(`https://api.themoviedb.org/3/discover/movie?with_genres=${genreId}&api_key=${API_KEY}&sort_by=popularity.desc&page=${page}`)
      url.searchParams.set("language", "ko-KR")
-     url.searchParams.set("include_adult", false)
-
      url.searchParams.set("with_original_language", "ko")
      url.searchParams.set("region", "kr")
     let response = await fetch(url)
     let data = await response.json()
-    return data.results
+    return data
 }
 genre()
+
+
+
+
+
+

@@ -11,7 +11,7 @@ const searchRender = async ()=>{
     let keyword = userValue.value
     const movies = await searchMovie(keyword)
     console.log(movies)
-    const searchHTML = movies.map((item)=>`
+    const searchHTML = movies.results.map((item)=>`
    <div class="best-area">
         <img src = "${`https://image.tmdb.org/t/p/w300${item.poster_path}`}">
         <div>${item.title.length > 15 ? item.title.slice(0,14):item.title}</div>
