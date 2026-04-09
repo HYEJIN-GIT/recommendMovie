@@ -2,6 +2,7 @@ import { searchMovie } from "./api.js"
 
 const userValue = document.getElementById('user-value')
 const searchArea = document.getElementById('search-render')
+
 userValue.addEventListener('keydown',(event)=>{
     if(event.key === "Enter"){
         searchRender()
@@ -20,6 +21,7 @@ const searchRender = async ()=>{
        </div>
     `).join('')
     searchArea.innerHTML = searchHTML
+  
 }
 searchRender()
 

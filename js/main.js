@@ -9,6 +9,7 @@
 
 
 import { nowPlayMovie,genre} from "./api.js";
+import { addMovie, getMovies } from "./storage.js";
 let total_results = 0
 let page =1
 const pageSize= 20
@@ -39,11 +40,22 @@ const nowRender = async ()=>{
         <img src = "${`https://image.tmdb.org/t/p/w300${item.poster_path}`}">
         <div>${item.title.length > 15 ? item.title.slice(0,14):item.title}</div>
         <div>${Math.round(item.vote_average*100)/100.0}</div>
-        <button class = "cancel" data-id="${item.id}">좋아요</button>
+        <button class = "favorite" data-id="${item.id}">좋아요</button>
        </div>
         
      `).join('')
     nowContent.innerHTML = nowHTML
+
+const heartBtn = document.querySelectorAll('.favorite')
+
+heartBtn.forEach((item)=>{
+   item.addEventListener('click',()=>{
+    const movieId = Number(item.dataset.id)
+    let favorite = data.results.find(content=>content.id === movieId )
+    addMovie(favorite)
+
+   })
+})
     paginationRender()
 }
 nowRender()
@@ -59,7 +71,7 @@ const genreRender= async ()=>{
         <img src = "${`https://image.tmdb.org/t/p/w300${item.poster_path}`}">
         <div>${item.title.length > 15 ? item.title.slice(0,14):item.title}</div>
         <div>${Math.round(item.vote_average*100)/100.0}</div>
-        <button class = "cancel" data-id="${item.id}">좋아요</button>
+        <button class = "favorite" data-id="${item.id}">좋아요</button>
        </div>
         
      `).join('')
@@ -120,3 +132,5 @@ const goToPage =async (num)=>{
     }
   
 }
+
+console.log(getMovies())
